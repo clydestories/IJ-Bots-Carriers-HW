@@ -12,7 +12,8 @@ public class Gem : Interactable
     public void PickUp(Transform origin)
     {
         transform.parent = origin;
-        transform.position = origin.position;
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
         _spawnPoint.SetFree();
     }
 

@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 
-public class InteractState : State//To interact state?
+public class InteractState : State
 {
     private Bot _bot;
 
@@ -12,7 +11,7 @@ public class InteractState : State//To interact state?
 
     public override void Enter()
     {
-        _bot.Interact();
+        _bot.StartInteract();
     }
 
     public override void Exit()
