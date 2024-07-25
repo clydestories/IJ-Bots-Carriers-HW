@@ -38,7 +38,7 @@ public static class BotStateMachineFactory
     {
         return new List<ITransition>()
         {
-            new TransitionTo<MoveState>(() => bot.IsInteracting == false),
+            new TransitionTo<MoveState>(() => bot.IsInteracting == false && bot.HasTarget),
             new TransitionTo<IdleState>(() => bot.HasTarget == false)
         };
     }
