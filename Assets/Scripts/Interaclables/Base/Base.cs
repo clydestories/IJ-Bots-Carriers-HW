@@ -24,7 +24,9 @@ public class Base : Interactable
     {
         if (_scaner.AvaliableGems.Count > 0 && _avaliableBots.Count() > 0)
         {
-            _avaliableBots[0].Deploy(_scaner.AvaliableGems[0]);
+            Gem gem = _scaner.AvaliableGems[0];
+            gem.Choose();
+            _avaliableBots[0].Deploy(gem);
             _scaner.RemoveGem(_scaner.AvaliableGems[0]);
         }
     }

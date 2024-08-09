@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class BaseScaner : MonoBehaviour
 {
-    [SerializeField] private GemSpawner _gemSpawner;
+    [SerializeField] private float _scanRadius;
+    [SerializeField] private LayerMask _scanLayers;
 
-    private List<Gem> _avaliableGems = new List<Gem>();
+    private List<Gem> _avaliableGems = new();
 
     public List<Gem> AvaliableGems => _avaliableGems.ToList();
 
-    private void OnEnable()
+    private void FixedUpdate()
     {
-        _gemSpawner.GemSpawned += AddGem;
-    }
+        Collider[] hits = Physics.OverlapSphere(transform.position, _scanRadius, _scanLayers);
 
-    private void OnDisable()
-    {
-        _gemSpawner.GemSpawned -= AddGem;
-    }
-
-    public void AddGem(Gem gem)
-    {
-        _avaliableGems.Add(gem);
+        foreach (var hit in hits)
+        {
+            if (hit.TryGetComponent(out Gem gem))
+            {
+                if (_avaliableGems.Contains(gem) == false && gem.IsChosen == false)
+                {
+                    _avaliableGems.Add(gem);
+                }
+            }
+        }
     }
 
     public void RemoveGem(Gem gem)

@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using System.Linq;
 using Zenject;
-using System;
 
 public class GemSpawner : MonoBehaviour
 {
@@ -11,8 +10,6 @@ public class GemSpawner : MonoBehaviour
     [SerializeField] private float _delay;
 
     [Inject] private GemPool _pool;
-
-    public event Action<Gem> GemSpawned;
 
     private void Start()
     {
@@ -41,7 +38,6 @@ public class GemSpawner : MonoBehaviour
             SpawnPoint point = freeSpawnPoints.ElementAt(pointIndex);
             Gem gem = _pool.Get(point.transform.position);
             point.Occupy(gem);
-            GemSpawned?.Invoke(gem);
         }
     }
 }

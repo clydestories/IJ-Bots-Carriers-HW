@@ -977,7 +977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d677a50829e464e969ea6436100ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _area: {fileID: 1848667287}
+  _scaner: {fileID: 1848667287}
   _bots:
   - {fileID: 446695105}
   - {fileID: 200537272}
@@ -1317,10 +1317,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1848667285}
-  - component: {fileID: 1848667286}
   - component: {fileID: 1848667287}
   m_Layer: 0
-  m_Name: Check Area
+  m_Name: Scaner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1341,27 +1340,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1363469413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1848667286
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1848667284}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 30
-  m_Center: {x: 3.24, y: 0, z: 0}
 --- !u!114 &1848667287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1371,10 +1349,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1848667284}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 467883628d3dca847849fde3b04d5479, type: 3}
+  m_Script: {fileID: 11500000, guid: 0acf8b2ec46de97438a550e308c60ad0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gemSpawner: {fileID: 827981678}
+  _scanRadius: 30
+  _scanLayers:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &1975467917 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8969295556260339277, guid: 5e15f4fe61c2df6438d97f57199d6163, type: 3}
