@@ -33,15 +33,14 @@ public class GemSpawner : MonoBehaviour
     private void Spawn()
     {
         var freeSpawnPoints = _spawnPoints.Where((point) => point.IsOccupied == false);
+        int freeSpawnPointsAmount = freeSpawnPoints.Count();
 
-        if (freeSpawnPoints.Count() > 0)
+        if (freeSpawnPointsAmount > 0)
         {
-            int pointIndex = UnityEngine.Random.Range(0, freeSpawnPoints.Count());
-            SpawnPoint point = freeSpawnPoints.ToArray()[pointIndex];
-            Debug.Log(point.gameObject.name);
+            int pointIndex = UnityEngine.Random.Range(0, freeSpawnPointsAmount);
+            SpawnPoint point = freeSpawnPoints.ElementAt(pointIndex);
             Gem gem = _pool.Get(point.transform.position);
-            gem.SetSpawnPoint(point);
-            point.Occupy();
+            point.Occupy(gem);
             GemSpawned?.Invoke(gem);
         }
     }

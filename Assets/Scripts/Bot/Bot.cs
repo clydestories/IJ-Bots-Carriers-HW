@@ -72,7 +72,7 @@ public class Bot : MonoBehaviour
         _animator.StoppedInteracting -= () => CompleteInteract();
     }
 
-    public void Send(Gem gem)
+    public void Deploy(Gem gem)
     {
         _isBusy = true;
         _target = gem;

@@ -17,6 +17,6 @@ public class GemPool : Pool<Gem>
     protected override void OnGet(Gem instance)
     {
         instance.transform.position = _nextOrigin;
-        instance.gameObject.SetActive(true);
+        base.OnGet(instance);
     }
 }

@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-    private bool _isOccupied;//To event 
+    public bool IsOccupied { get; private set; }
 
-    public bool IsOccupied => _isOccupied;
-
-    public void Occupy()
+    public void Occupy(Gem gem)
     {
-        _isOccupied = true;
+        gem.PickedUp += SetFree;
+        IsOccupied = true;
     }
 
-    public void SetFree()
+    private void SetFree(Gem gem)
     {
-        _isOccupied = false;
+        gem.PickedUp -= SetFree;
+        IsOccupied = false;
     }
 }

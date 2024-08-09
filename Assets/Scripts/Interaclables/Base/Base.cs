@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Base : Interactable
 {
-    [SerializeField] private BaseCheckArea _area;
+    [SerializeField] private BaseScaner _scaner;
     [SerializeField] private List<Bot> _bots = new List<Bot>();
 
     private int _gemsAmount = 0;
@@ -22,16 +22,10 @@ public class Base : Interactable
 
     private void Update()
     {
-        if (_area.AvaliableGems.Count > 0 && _avaliableBots.Count() > 0)
+        if (_scaner.AvaliableGems.Count > 0 && _avaliableBots.Count() > 0)
         {
-            Debug.Log($"{_avaliableBots[0].gameObject.name} sent for {_area.AvaliableGems[0].gameObject.GetInstanceID()}");
-            _avaliableBots[0].Send(_area.AvaliableGems[0]);
-            _area.RemoveGem(_area.AvaliableGems[0]);
-        }
-
-        foreach (Bot bot in _avaliableBots)
-        {
-            Debug.Log(bot.gameObject.name);
+            _avaliableBots[0].Deploy(_scaner.AvaliableGems[0]);
+            _scaner.RemoveGem(_scaner.AvaliableGems[0]);
         }
     }
 

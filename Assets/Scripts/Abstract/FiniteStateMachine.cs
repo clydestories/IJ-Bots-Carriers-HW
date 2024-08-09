@@ -15,7 +15,6 @@ public abstract class FiniteStateMachine
 
     public void EnterState<TState>()
     {
-        Debug.Log(typeof(TState));
         EnterState(typeof(TState));
     }
 
@@ -37,7 +36,5 @@ public abstract class FiniteStateMachine
         {
             EnterState(type);
         }
-
-        Debug.Log($"{_currentState.GetType()}");
     }
 }

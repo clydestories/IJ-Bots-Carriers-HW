@@ -9,8 +9,6 @@ public class SceneInitializer : MonoInstaller
 
     public override void InstallBindings()
     {
-        //BotStateMachineFactory botStateMachineFactory = new BotStateMachineFactory();
         Container.Bind<GemPool>().FromNew().AsSingle().WithArguments(_gem, _gemPoolDefaultCapacity, _gemPoolMaxSize);
-        //Container.Bind<BotStateMachine>().FromInstance(botStateMachineFactory.CreateBotStateMachine()).AsTransient(); How to know from who
     }
 }
