@@ -12,7 +12,7 @@ public class Base : Interactable
 
     public event Action<int> GemAmountChanged;
 
-    private Bot[] _avaliableBots
+    private Bot[] AvaliableBots
     {
         get
         {
@@ -22,11 +22,11 @@ public class Base : Interactable
 
     private void Update()
     {
-        if (_scaner.AvaliableGems.Count > 0 && _avaliableBots.Count() > 0)
+        if (_scaner.AvaliableGems.Count > 0 && AvaliableBots.Count() > 0)
         {
             Gem gem = _scaner.AvaliableGems[0];
             gem.Choose();
-            _avaliableBots[0].Deploy(gem);
+            AvaliableBots[0].Deploy(gem);
             _scaner.RemoveGem(_scaner.AvaliableGems[0]);
         }
     }

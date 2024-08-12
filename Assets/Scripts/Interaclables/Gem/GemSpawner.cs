@@ -34,7 +34,7 @@ public class GemSpawner : MonoBehaviour
 
         if (freeSpawnPointsAmount > 0)
         {
-            int pointIndex = UnityEngine.Random.Range(0, freeSpawnPointsAmount);
+            int pointIndex = Random.Range(0, freeSpawnPointsAmount);
             SpawnPoint point = freeSpawnPoints.ElementAt(pointIndex);
             Gem gem = _pool.Get(point.transform.position);
             point.Occupy(gem);

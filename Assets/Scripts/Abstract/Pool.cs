@@ -4,13 +4,13 @@ using Zenject;
 
 public abstract class Pool<T>  where T : Component
 {
+    protected ObjectPool<T> ObjectPool;
+
     private T _prefab;
     private int _defaultCapacity;
     private int _maxSize;
 
     [Inject] private DiContainer _diContainer;
-
-    protected ObjectPool<T> ObjectPool;
 
     public Pool(T prefab, int defaultCapacity, int maxSize)
     {
