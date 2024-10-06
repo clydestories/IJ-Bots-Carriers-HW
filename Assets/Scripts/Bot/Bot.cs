@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 [RequireComponent (typeof(NavMeshAgent))]
 public class Bot : MonoBehaviour
@@ -24,6 +25,7 @@ public class Bot : MonoBehaviour
     public bool IsBusy => _isBusy;
     public bool IsInteracting => _isInteracting;
     public Transform GemContainer => _gemContainer;
+    public Interactable HandItem => _handItem;
 
     public Vector3 TargetPosition
     {
@@ -72,10 +74,10 @@ public class Bot : MonoBehaviour
         _animator.StoppedInteracting -= () => CompleteInteract();
     }
 
-    public void Deploy(Gem gem)
+    public void Deploy(Interactable interactable)
     {
         _isBusy = true;
-        _target = gem;
+        _target = interactable;
     }
 
     public void Move()
@@ -91,22 +93,42 @@ public class Bot : MonoBehaviour
         StoppedMoving?.Invoke();
     }
 
-    public void LoadOut()
+    public void ResetSelf()
     {
         _isBusy = false;
-        Destroy(_handItem.gameObject);
         _target = null;
     }
 
-    public void TakeGem(Gem gem)
+    public void LoadOut()
     {
-        _handItem = gem;
+        _isBusy = false;
+        _target = null;
+    }
+
+    public void Interact(Interactable interactable)
+    {
+        if (interactable is Gem)
+        {
+            _handItem = interactable;
+        }
+        
         _target = _base;
     }
 
     public void StartInteract()
     {
         Interacting?.Invoke();
+    }
+
+    public void LinkBase(Base newBase)
+    {
+        if (_base != null)
+        {
+            _base.Dispatcher.LoseBot(this);
+        }
+
+        _base = newBase;
+        _base.Dispatcher.AddBot(this);
     }
 
     private void CompleteInteract()

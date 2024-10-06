@@ -1,45 +1,47 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(Dispatcher))]
 public class Base : Interactable
 {
-    [SerializeField] private BaseScaner _scaner;
-    [SerializeField] private List<Bot> _bots = new List<Bot>();
+    private readonly int _minAmountOfBots = 1;
 
-    private int _gemsAmount = 0;
+    [SerializeField] private BaseShop _shop;
+    [SerializeField] private Dispatcher _dispatcher;
+    [SerializeField] private FlagCreator _flagCreator;
 
-    public event Action<int> GemAmountChanged;
+    public event Action<Gem> Unloaded;
 
-    private Bot[] AvaliableBots
+    public Dispatcher Dispatcher => _dispatcher;
+
+    private void Awake()
     {
-        get
-        {
-            return _bots.Where((bot) => bot.IsBusy == false).ToArray();
-        }
+        _dispatcher = GetComponent<Dispatcher>();
     }
 
     private void Update()
     {
-        if (_scaner.AvaliableGems.Count > 0 && AvaliableBots.Count() > 0)
+        if (_flagCreator.CurrentFlag != null && _dispatcher.AvaliableBots.Count() > 0 && _dispatcher.BotsCount > _minAmountOfBots) 
         {
-            Gem gem = _scaner.AvaliableGems[0];
-            gem.Choose();
-            AvaliableBots[0].Deploy(gem);
-            _scaner.RemoveGem(_scaner.AvaliableGems[0]);
+            if (_shop.TryBuyBase()) 
+            {
+                _dispatcher.DispatchToFlag(_flagCreator.CurrentFlag);
+            }
         }
+
+        _dispatcher.Dispatch();
     }
 
-    public void Unload()
+    public void Unload(Gem gem)
     {
-        _gemsAmount++;
-        GemAmountChanged?.Invoke(_gemsAmount);
+        Unloaded?.Invoke(gem);
+        _shop.AddGem();
     }
 
     public override void Interact(Bot bot)
     {
-        Unload();
+        Unload(bot.HandItem as Gem);
         bot.LoadOut();
     }
 }

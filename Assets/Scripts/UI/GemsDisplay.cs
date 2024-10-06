@@ -4,16 +4,16 @@ using UnityEngine;
 public class GemsDisplay : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
-    [SerializeField] private Base _base;
+    [SerializeField] private BaseShop _shop;
 
     private void OnEnable()
     {
-        _base.GemAmountChanged += UpdateValue;
+        _shop.GemAmountChanged += UpdateValue;
     }
 
     private void OnDisable()
     {
-        _base.GemAmountChanged -= UpdateValue;
+        _shop.GemAmountChanged -= UpdateValue;
     }
 
     private void UpdateValue(int value)

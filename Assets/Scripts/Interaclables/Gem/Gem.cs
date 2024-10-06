@@ -15,7 +15,7 @@ public class Gem : Interactable
     public override void Interact(Bot bot)
     {
         PickUp(bot.GemContainer);
-        bot.TakeGem(this);
+        bot.Interact(this);
     }
 
     public void Choose()

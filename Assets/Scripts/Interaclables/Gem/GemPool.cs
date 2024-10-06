@@ -17,6 +17,7 @@ public class GemPool : Pool<Gem>
     protected override void OnGet(Gem instance)
     {
         instance.transform.position = _nextOrigin;
+        instance.transform.rotation = Quaternion.identity;
         base.OnGet(instance);
     }
 }

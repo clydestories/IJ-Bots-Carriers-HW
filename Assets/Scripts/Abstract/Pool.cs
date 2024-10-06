@@ -10,7 +10,7 @@ public abstract class Pool<T>  where T : Component
     private int _defaultCapacity;
     private int _maxSize;
 
-    [Inject] private DiContainer _diContainer;
+    [Inject] private IInstantiator _instatiator;
 
     public Pool(T prefab, int defaultCapacity, int maxSize)
     {
@@ -47,11 +47,12 @@ public abstract class Pool<T>  where T : Component
 
     private T OnCreate()
     {
-        return _diContainer.InstantiatePrefab(_prefab).GetComponent<T>();
+        return _instatiator.InstantiatePrefab(_prefab).GetComponent<T>();
     }
 
     private void OnRelease(T instance)
     {
         instance.gameObject.SetActive(false);
+        instance.transform.parent = null;
     }
 }
