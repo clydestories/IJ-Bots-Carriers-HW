@@ -8,6 +8,7 @@ public class FlagCreator : MonoBehaviour
 
     [SerializeField] private Flag _flag;
     [SerializeField] private LayerMask _hittableLayers;
+    [SerializeField] private Base _base;
 
     [Inject] private BaseCreator _baseCreator;
 
@@ -33,6 +34,7 @@ public class FlagCreator : MonoBehaviour
                 {
                     _currentFlag = Instantiate(_flag, hit.point, Quaternion.identity);
                     _currentFlag.Interacred += _baseCreator.CreateBase;
+                    _currentFlag.Interacred += _base.OnBaseBuilt;
                 }
                 else
                 {

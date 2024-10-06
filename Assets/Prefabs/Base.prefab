@@ -262,6 +262,7 @@ MonoBehaviour:
   _hittableLayers:
     serializedVersion: 2
     m_Bits: 512
+  _base: {fileID: 6419993813992727435}
 --- !u!1 &3556472678579937664
 GameObject:
   m_ObjectHideFlags: 0

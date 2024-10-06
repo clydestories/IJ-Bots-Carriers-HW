@@ -10,6 +10,6 @@ public class Flag : Interactable
     public override void Interact(Bot bot)
     {
         Interacred?.Invoke(bot, transform.position, this);
-        Destroy(gameObject);
+        Destroy(gameObject, 3);
     }
 }

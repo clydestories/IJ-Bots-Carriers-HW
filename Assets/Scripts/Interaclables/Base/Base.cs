@@ -11,6 +11,8 @@ public class Base : Interactable
     [SerializeField] private Dispatcher _dispatcher;
     [SerializeField] private FlagCreator _flagCreator;
 
+    private bool _isBuildingNewBase = false;
+
     public event Action<Gem> Unloaded;
 
     public Dispatcher Dispatcher => _dispatcher;
@@ -24,13 +26,22 @@ public class Base : Interactable
     {
         if (_flagCreator.CurrentFlag != null && _dispatcher.AvaliableBots.Count() > 0 && _dispatcher.BotsCount > _minAmountOfBots) 
         {
-            if (_shop.TryBuyBase()) 
+            if (_isBuildingNewBase == false) 
             {
-                _dispatcher.DispatchToFlag(_flagCreator.CurrentFlag);
+                if (_shop.TryBuyBase())
+                {
+                    _isBuildingNewBase = true;
+                    _dispatcher.DispatchToFlag(_flagCreator.CurrentFlag);
+                }
             }
         }
 
         _dispatcher.Dispatch();
+    }
+
+    public void OnBaseBuilt(Bot bot, Vector3 position, Flag flag)
+    {
+        _isBuildingNewBase = false;
     }
 
     public void Unload(Gem gem)
