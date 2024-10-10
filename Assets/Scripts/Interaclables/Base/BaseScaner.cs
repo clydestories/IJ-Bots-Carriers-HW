@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 public class BaseScaner : MonoBehaviour
 {
     [SerializeField] private float _scanRadius;
     [SerializeField] private LayerMask _scanLayers;
+
+    [Inject] private Observer _observer;
 
     private List<Gem> _avaliableGems = new();
 
@@ -19,7 +22,7 @@ public class BaseScaner : MonoBehaviour
         {
             if (hit.TryGetComponent(out Gem gem))
             {
-                if (_avaliableGems.Contains(gem) == false && gem.IsChosen == false)
+                if (_avaliableGems.Contains(gem) == false && _observer.IsGemChosen(gem) == false)
                 {
                     _avaliableGems.Add(gem);
                 }

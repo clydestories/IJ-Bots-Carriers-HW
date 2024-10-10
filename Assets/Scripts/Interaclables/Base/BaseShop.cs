@@ -18,6 +18,11 @@ public class BaseShop : MonoBehaviour
     {
         _gemsAmount++;
         GemAmountChanged?.Invoke(_gemsAmount);
+
+        if (_flags.CurrentFlag == null)
+        {
+            BuyBot();
+        }
     }
 
     public void BuyBot()

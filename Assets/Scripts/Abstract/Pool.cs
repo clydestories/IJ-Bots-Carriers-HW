@@ -23,7 +23,7 @@ public abstract class Pool<T>  where T : Component
                 createFunc: OnCreate,
                 actionOnGet: OnGet,
                 actionOnRelease: OnRelease,
-                actionOnDestroy: (obj) => Object.Destroy(obj),
+                actionOnDestroy: (obj) => Object.Destroy(obj as GameObject),
                 collectionCheck: false,
                 defaultCapacity: _defaultCapacity,
                 maxSize: _maxSize

@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 public class Dispatcher : MonoBehaviour
 {
     [SerializeField] private BaseScaner _scaner;
     [SerializeField] private List<Bot> _bots = new List<Bot>();
+
+    [Inject] private Observer _observer;
 
     public int BotsCount => _bots.Count;
 
@@ -36,9 +39,9 @@ public class Dispatcher : MonoBehaviour
         {
             Gem gem = _scaner.AvaliableGems[0];
 
-            if (gem.IsChosen == false)
+            if (_observer.IsGemChosen(gem) == false)
             {
-                gem.Choose();
+                _observer.ChooseGem(gem);
                 AvaliableBots[0].Deploy(gem);
             }
 

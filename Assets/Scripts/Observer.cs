@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
 using UnityEngine;
 using Zenject;
 
@@ -7,6 +6,7 @@ public class Observer : MonoBehaviour
 {
     [SerializeField] private List<Base> _bases = new List<Base>();
     [SerializeField] private BaseCreator _creator;
+    [SerializeField] private List<Gem> _chosenGems;
 
     [Inject] private GemPool _gemPool;
 
@@ -30,9 +30,20 @@ public class Observer : MonoBehaviour
         _creator.BaseCreated -= SubscribeToBase;
     }
 
+    public void ChooseGem(Gem gem)
+    {
+        _chosenGems.Add(gem);
+    }
+
+    public bool IsGemChosen(Gem gem)
+    {
+        return _chosenGems.Contains(gem);
+    }
+
     private void ReleaseGem(Gem gem)
     {
         _gemPool.Release(gem);
+        _chosenGems.Remove(gem);
     }
 
     private void SubscribeToBase(Base newBase)

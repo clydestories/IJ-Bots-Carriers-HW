@@ -5,22 +5,10 @@ public class Gem : Interactable
 {
     public event Action<Gem> PickedUp;
 
-    public bool IsChosen { get; private set; }
-
-    private void OnEnable()
-    {
-        IsChosen = false;
-    }
-
     public override void Interact(Bot bot)
     {
         PickUp(bot.GemContainer);
         bot.Interact(this);
-    }
-
-    public void Choose()
-    {
-        IsChosen = true;
     }
 
     private void PickUp(Transform origin)

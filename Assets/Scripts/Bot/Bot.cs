@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-using Zenject;
 
 [RequireComponent (typeof(NavMeshAgent))]
 public class Bot : MonoBehaviour
@@ -52,9 +51,9 @@ public class Bot : MonoBehaviour
 
     private void OnEnable()
     {
-        Interacting += () => _isInteracting = true;
-        StoppedInteracting += () => _isInteracting = false;
-        _animator.StoppedInteracting += () => CompleteInteract();
+        Interacting += TurnInteractionOn;
+        StoppedInteracting += TurnInteractionOff;
+        _animator.StoppedInteracting += CompleteInteract;
     }
 
     private void Start()
@@ -69,9 +68,9 @@ public class Bot : MonoBehaviour
 
     private void OnDisable()
     {
-        Interacting -= () => _isInteracting = true;
-        StoppedInteracting -= () => _isInteracting = false;
-        _animator.StoppedInteracting -= () => CompleteInteract();
+        Interacting -= TurnInteractionOn;
+        StoppedInteracting -= TurnInteractionOff;
+        _animator.StoppedInteracting -= CompleteInteract;
     }
 
     public void Deploy(Interactable interactable)
@@ -135,5 +134,15 @@ public class Bot : MonoBehaviour
     {
         _target.Interact(this);
         StoppedInteracting?.Invoke();
+    }
+
+    private void TurnInteractionOn()
+    {
+        _isInteracting = true;
+    }
+
+    private void TurnInteractionOff()
+    {
+        _isInteracting = false;
     }
 }
