@@ -41,6 +41,7 @@ public class Base : Interactable
 
     public void OnBaseBuilt(Bot bot, Vector3 position, Flag flag)
     {
+        flag.Interacred -= OnBaseBuilt;
         _isBuildingNewBase = false;
     }
 
